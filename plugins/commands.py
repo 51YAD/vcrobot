@@ -188,14 +188,17 @@ async def show_help(client, message):
 async def repo_(client, message):
     buttons = [
         [
-            InlineKeyboardButton('🧩 Repository', url=''https://t.me/Siyad thoughts'),
-            InlineKeyboardButton('⚙️ Update Channel', url=''https://t.me/Siyad thoughts'),     
+            InlineKeyboardButton('⚙️ Update Channel', url='https://t.me/subin_works'),
+            InlineKeyboardButton('🧩 Source', url='https://github.com/subinps/VCPlayerBot')
         ],
         [
-           
+            InlineKeyboardButton('👨🏼‍🦯 Help', callback_data='help_main'),
+            InlineKeyboardButton('🗑 Close', callback_data='close'),
+        ]
     ]
-    await message.reply("<b>The source code of this bot is public and can be found at <a href=https://github.com/subinps/VCPlayerBot>VCPlayerBot.</a>\nYou can deploy your own bot and use in your group.\n\nFeel free to star☀️ the repo if you liked it 🙃.</b>", reply_markup=InlineKeyboardMarkup(buttons), disable_web_page_preview=True)
-    await delete_messages([message])
+    reply_markup = InlineKeyboardMarkup(buttons)
+    k = await message.reply(HOME_TEXT.format(message.from_user.first_name, message.from_user.id), reply_markup=reply_markup)
+    await delete_messages([message, k])
 
 @Client.on_message(filters.command(['restart', 'update', f"restart@{Config.BOT_USERNAME}", f"update@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def update_handler(client, message):
